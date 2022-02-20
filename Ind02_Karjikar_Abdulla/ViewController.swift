@@ -37,8 +37,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var showAnswer: UIButton!
     @IBOutlet weak var shuffle: UIButton!
     
-    var solvedPuzzleCenters: [(CGFloat, CGFloat)] = []
-    var currentStateImageCenters: [(CGFloat, CGFloat)] = []
+    var solvedPuzzleCenters: [CGPoint] = []
+    var currentStateImageCenters: [CGPoint] = []
     var imageArrays: [UIImageView] = []
 
     
@@ -47,14 +47,13 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         imageViewArray()
         UpdateSolvedPuzzleCenters(isOrignialState: true)
-        // Do any additional setup after loading the view.
     }
     
     func UpdateSolvedPuzzleCenters(isOrignialState: Bool){
-        var temp : [(CGFloat, CGFloat)] = []
+        var temp : [CGPoint] = []
         
         for index in 0...19{
-            temp.append((imageArrays[index].center.x, imageArrays[index].center.y))
+            temp.append(CGPoint(x: imageArrays[index].center.x, y: imageArrays[index].center.y))
         }
         
         if(isOrignialState){
@@ -71,7 +70,23 @@ class ViewController: UIViewController {
         
         if(canSwapAndWith.1){
             swapWithBlank(imageView: imageView)
+            if(isPuzzleSolved()){
+                showAnswer.setTitle("Puzzle Solved! Play Again", for: .normal)
+            }
         }
+    }
+    
+    func isPuzzleSolved() -> Bool{
+        var currentImageCoordinate: [Bool] = []
+        for index in 0...19{
+            if(imageArrays[0].center == solvedPuzzleCenters[index]){
+                currentImageCoordinate.append(false)
+            }
+        }
+        if(currentImageCoordinate.contains(false)){
+            return false
+        }
+        return true
     }
     
     func swapWithBlank(imageView: UIView){
@@ -80,9 +95,6 @@ class ViewController: UIViewController {
         imageView.center.y = Img_1_1.center.y
         Img_1_1.center.x = temp.xCoordinate
         Img_1_1.center.y = temp.yCoordinate
-    }
-    
-    @IBAction func demo(_ sender: Any) {
     }
     
     @IBAction func showHideAnswer(_ sender: UIButton) {
@@ -97,10 +109,17 @@ class ViewController: UIViewController {
         }
     }
     
-    func updateImageCenters(imageCenter: [(CGFloat, CGFloat)]){
+    @IBAction func shufflePuzzle(_ sender: UIButton) {
+        for _ in 1...Int.random(in: 50...60){
+            swapWithBlank(imageView: validSwapCombinationsBasedOnBlankImage())
+        }
+    }
+    
+    
+    func updateImageCenters(imageCenter: [CGPoint]){
         for index in 0...19{
-            imageArrays[index].center.x = imageCenter[index].0
-            imageArrays[index].center.y = imageCenter[index].1
+            imageArrays[index].center.x = imageCenter[index].x
+            imageArrays[index].center.y = imageCenter[index].y
         }
     }
     
@@ -123,6 +142,28 @@ class ViewController: UIViewController {
             return ((xCoordinate: blank_x, yCoordinate: blank_y), canSwap: true)
         }
         return ((xCoordinate: 0.00, yCoordinate: 0.00), canSwap: false)
+    }
+    
+    func validSwapCombinationsBasedOnBlankImage() -> UIView{
+        let blank_x = Img_1_1.center.x
+        let blank_y = Img_1_1.center.y
+        
+        let left = CGPoint(x: blank_x - 93 - 93, y: blank_y )
+        let right = CGPoint(x: blank_x + 93, y: blank_y )
+        let up = CGPoint(x: blank_x, y: blank_y - 93)
+        let down = CGPoint(x: blank_x, y: blank_y + 93)
+        
+        let allValidSwapCenters: [CGPoint] = [left, right, up, down]
+        var possibleSwapCenters: [UIView] = []
+        
+        for index in 0...19{
+            if(allValidSwapCenters.contains(CGPoint(x: imageArrays[index].center.x, y: imageArrays[index].center.y))){
+                possibleSwapCenters.append(imageArrays[index])
+            }
+        }
+        
+        //print(possibleSwapCenters.count)
+        return possibleSwapCenters.randomElement()!
     }
     
     func imageViewArray(){
