@@ -228,6 +228,7 @@
                         <outlet property="Img_5_2" destination="q1Z-qn-Tvy" id="XZK-t4-RAC"/>
                         <outlet property="Img_5_3" destination="byJ-SD-mm8" id="GMO-Tm-7Uq"/>
                         <outlet property="Img_5_4" destination="n6o-oF-hCY" id="gVl-vu-xWf"/>
+                        <outlet property="showAnswer" destination="hqb-3t-nZx" id="jnu-5x-brP"/>
                         <outlet property="shuffle" destination="7K1-yM-9SP" id="Rws-0U-YWf"/>
                     </connections>
                 </viewController>

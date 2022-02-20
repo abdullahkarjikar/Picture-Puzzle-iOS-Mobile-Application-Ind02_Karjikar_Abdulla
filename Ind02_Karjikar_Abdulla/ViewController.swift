@@ -64,28 +64,31 @@ class ViewController: UIViewController {
     }
 
     @IBAction func TapHandler(_ sender: UITapGestureRecognizer) {
-        
-        let imageView = sender.view!
-        let canSwapAndWith: ((CGFloat, CGFloat), Bool) = checkValidSwapAndGetCenter(imageCoordinate: imageView)
-        
-        if(canSwapAndWith.1){
-            swapWithBlank(imageView: imageView)
-            if(isPuzzleSolved()){
-                showAnswer.setTitle("Puzzle Solved! Play Again", for: .normal)
+        if (showAnswer.titleLabel?.text == "Show Answer"){
+            let imageView = sender.view!
+            let canSwapAndWith: ((CGFloat, CGFloat), Bool) = checkValidSwapAndGetCenter(imageCoordinate: imageView)
+            
+            if(canSwapAndWith.1){
+                swapWithBlank(imageView: imageView)
+                if(isPuzzleSolved()){
+                    showAnswer.setTitle("Puzzle Solved! Play Again", for: .normal)
+                }
             }
         }
+        
     }
     
     func isPuzzleSolved() -> Bool{
         var currentImageCoordinate: [Bool] = []
         for index in 0...19{
-            if(imageArrays[0].center == solvedPuzzleCenters[index]){
+            if(imageArrays[index].center.x == solvedPuzzleCenters[index].x && imageArrays[index].center.y == solvedPuzzleCenters[index].y){
                 currentImageCoordinate.append(false)
             }
         }
         if(currentImageCoordinate.contains(false)){
             return false
         }
+        print(currentImageCoordinate.count)
         return true
     }
     
