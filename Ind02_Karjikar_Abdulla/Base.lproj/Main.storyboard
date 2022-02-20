@@ -22,9 +22,13 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="blank_Img" translatesAutoresizingMaskIntoConstraints="NO" id="QK4-kd-He1">
+                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="blank_Img" translatesAutoresizingMaskIntoConstraints="NO" id="QK4-kd-He1">
                                 <rect key="frame" x="21" y="144" width="93" height="93"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="XUh-nt-KFI" appends="YES" id="gCJ-hi-Kzc"/>
+                                </connections>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="1_2" translatesAutoresizingMaskIntoConstraints="NO" id="ZlK-8E-m4K">
                                 <rect key="frame" x="114" y="144" width="93" height="93"/>
@@ -120,9 +124,33 @@
                     </view>
                     <connections>
                         <outlet property="Img_1_1" destination="QK4-kd-He1" id="3bx-tf-wNS"/>
+                        <outlet property="Img_1_2" destination="ZlK-8E-m4K" id="L6h-sH-ESu"/>
+                        <outlet property="Img_1_3" destination="NfZ-1D-W62" id="SIk-9O-bg0"/>
+                        <outlet property="Img_1_4" destination="Vs3-lq-1HH" id="Ekx-ww-Ws2"/>
+                        <outlet property="Img_2_1" destination="cef-GB-v3U" id="E7G-5t-jtu"/>
+                        <outlet property="Img_2_2" destination="rR3-yb-Oke" id="FYi-5Q-gmI"/>
+                        <outlet property="Img_2_3" destination="ypM-Pp-NRg" id="LPo-de-Hbm"/>
+                        <outlet property="Img_2_4" destination="GSo-QB-Xnd" id="ChF-f4-Ler"/>
+                        <outlet property="Img_3_1" destination="LI0-l9-ZVS" id="bkE-J0-f3e"/>
+                        <outlet property="Img_3_2" destination="QpA-tg-M2q" id="qaZ-pD-Dz4"/>
+                        <outlet property="Img_3_3" destination="2JD-lF-k82" id="6c1-7t-dXc"/>
+                        <outlet property="Img_3_4" destination="tCp-i5-sIu" id="40t-Dj-4bt"/>
+                        <outlet property="Img_4_1" destination="eiw-yV-wV9" id="zbv-uM-nnQ"/>
+                        <outlet property="Img_4_2" destination="kU5-hz-qMa" id="nfF-Ri-xe4"/>
+                        <outlet property="Img_4_3" destination="93C-vr-luZ" id="K5w-0k-VpL"/>
+                        <outlet property="Img_4_4" destination="O4o-e7-XHQ" id="57z-lu-NHS"/>
+                        <outlet property="Img_5_1" destination="YDT-bP-pNT" id="Oe3-ld-8FB"/>
+                        <outlet property="Img_5_2" destination="q1Z-qn-Tvy" id="XZK-t4-RAC"/>
+                        <outlet property="Img_5_3" destination="byJ-SD-mm8" id="GMO-Tm-7Uq"/>
+                        <outlet property="Img_5_4" destination="n6o-oF-hCY" id="gVl-vu-xWf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="XUh-nt-KFI">
+                    <connections>
+                        <action selector="TapHandler:" destination="BYZ-38-t0r" id="DyN-nm-IfV"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="18.840579710144929" y="66.964285714285708"/>
         </scene>
