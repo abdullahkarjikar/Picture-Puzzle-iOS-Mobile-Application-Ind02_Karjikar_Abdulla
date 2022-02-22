@@ -74,21 +74,25 @@ class ViewController: UIViewController {
                     showAnswer.setTitle("Puzzle Solved! Play Again", for: .normal)
                 }
             }
+//            let isSolved = isPuzzleSolved()
+//            print("========IsPuzzleSovled: \(isSolved)")
         }
         
     }
     
     func isPuzzleSolved() -> Bool{
         var currentImageCoordinate: [Bool] = []
+        //print("InPuzzledSolved ================")
         for index in 0...19{
-            if(imageArrays[index].center.x == solvedPuzzleCenters[index].x && imageArrays[index].center.y == solvedPuzzleCenters[index].y){
+            //print("Current Loc: \(imageArrays[index].center.x), \(imageArrays[index].center.y); Solved: \(solvedPuzzleCenters[index].x), \(solvedPuzzleCenters[index].y)")
+            if(imageArrays[index].center.x != solvedPuzzleCenters[index].x || imageArrays[index].center.y != solvedPuzzleCenters[index].y){
                 currentImageCoordinate.append(false)
             }
         }
+        //print("============================\(currentImageCoordinate.count)")
         if(currentImageCoordinate.contains(false)){
             return false
         }
-        print(currentImageCoordinate.count)
         return true
     }
     
@@ -106,14 +110,17 @@ class ViewController: UIViewController {
             UpdateSolvedPuzzleCenters(isOrignialState: false)
             updateImageCenters(imageCenter: solvedPuzzleCenters)
             sender.setTitle("Hide Answer", for: .normal)
-        }else{
+        } else if(sender.titleLabel?.text == "Puzzle Solved! Play Again"){
+            shufflePuzzle(showAnswer)
+            sender.setTitle("Show Answer", for: .normal)
+        } else{
             updateImageCenters(imageCenter: currentStateImageCenters)
             sender.setTitle("Show Answer", for: .normal)
         }
     }
     
     @IBAction func shufflePuzzle(_ sender: UIButton) {
-        for _ in 1...Int.random(in: 50...60){
+        for _ in 1...Int.random(in: 1...2){
             swapWithBlank(imageView: validSwapCombinationsBasedOnBlankImage())
         }
     }
