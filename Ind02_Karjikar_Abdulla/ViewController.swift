@@ -120,7 +120,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func shufflePuzzle(_ sender: UIButton) {
-        for _ in 1...Int.random(in: 1...2){
+        for _ in 1...Int.random(in: 50...60){
             swapWithBlank(imageView: validSwapCombinationsBasedOnBlankImage())
         }
     }
