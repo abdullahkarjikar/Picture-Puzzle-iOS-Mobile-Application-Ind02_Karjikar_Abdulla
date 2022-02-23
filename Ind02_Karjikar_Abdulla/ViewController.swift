@@ -52,7 +52,9 @@ class ViewController: UIViewController {
     // Array to of all ImageViews. This will be initialized in "viewDidLoad()" while starting the app
     var imageArrays: [UIImageView] = []
 
-    
+    /*
+     Below function during App Startup
+     */
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -93,14 +95,13 @@ class ViewController: UIViewController {
         }
     }
     
-    
     /*
      This single function is linked with all ImageView having TapGestureRecognizer.
      */
     @IBAction func TapHandler(_ sender: UITapGestureRecognizer) {
         
         // User will be able to move tile if and only if he is not viewing the answer of the puzzle
-        if (showAnswer.titleLabel?.text == "Show Answer"){
+        if (showAnswer.titleLabel?.text != "Hide Answer"){
             let imageView = sender.view!
             
             // CanSwapAndWith is a tupple. First part holds the coordinate with which the blank image can be swapped. Second part holds a boolean value which identifies if the tap image should be swapped. This code is implemented to swap only tiles which are adjacent to blank tile.
@@ -113,6 +114,12 @@ class ViewController: UIViewController {
                 // If puzzle is solved then button with "ShowAnswer" Label is changed to "Puzzle Solved! Play Again". This function is invoked everytime a tile is swapped.
                 if(isPuzzleSolved()){
                     showAnswer.setTitle("Puzzle Solved! Play Again", for: .normal)
+                    showAnswer.setTitleColor(UIColor.systemPink, for: .normal)
+                    showAnswer.titleLabel?.font = UIFont.systemFont(ofSize: 20)
+                } else {
+                    showAnswer.setTitle("Show Answer", for: .normal)
+                    showAnswer.setTitleColor(UIColor.white, for: .normal)
+                    showAnswer.titleLabel?.font = UIFont.systemFont(ofSize: 20)
                 }
             }
         }
@@ -156,16 +163,23 @@ class ViewController: UIViewController {
             UpdateSolvedPuzzleCenters(isOrignialState: false)
             updateImageCenters(imageCenter: solvedPuzzleCenters)
             sender.setTitle("Hide Answer", for: .normal)
+            sender.titleLabel?.textColor = UIColor.white
+            sender.titleLabel?.font = UIFont.systemFont(ofSize: 20)
             
             // If Puzzle is Solved, then tapping "Puzzle Solved! Play Again" will invoke shufflePuzzle function to shuffle the tiles in solvable manner and update button label with "Show Answer"
         } else if(sender.titleLabel?.text == "Puzzle Solved! Play Again"){
             shufflePuzzle(showAnswer)
             sender.setTitle("Show Answer", for: .normal)
+            sender.titleLabel?.textColor = UIColor.white
+            sender.titleLabel?.font = UIFont.systemFont(ofSize: 20)
             
             // This code is executed if label is "Hide Answer" and loads then image view centers with saved image view center which were stored when "Show Answer" was tapped and change button label to "Show Answer"
         } else{
             updateImageCenters(imageCenter: currentStateImageCenters)
             sender.setTitle("Show Answer", for: .normal)
+            sender.setTitleColor(UIColor.white, for: .normal)
+            sender.titleLabel?.font = UIFont.systemFont(ofSize: 20)
+            
         }
     }
     
@@ -178,10 +192,12 @@ class ViewController: UIViewController {
         // If we are shuffling tiles after puzzle is solved change button label to "Show Answer"
         if(showAnswer.titleLabel?.text == "Puzzle Solved! Play Again"){
             showAnswer.setTitle("Show Answer", for: .normal)
+            showAnswer.setTitleColor(UIColor.white, for: .normal)
+            showAnswer.titleLabel?.font = UIFont.systemFont(ofSize: 20)
         }
         
         // Randomly shuffling 50 to 60 times blank tile with randomly selected adjacent tile. At most blank tile can be valid swapped with 4 tiles and atleast with 2 tiles
-        for _ in 1...Int.random(in: 50...60){
+        for _ in 1...Int.random(in: 15...25){
             swapWithBlank(imageView: validSwapCombinationsBasedOnBlankImage())
         }
     }
@@ -197,7 +213,7 @@ class ViewController: UIViewController {
     }
     
     /*
-     This function will identify if the tapped image is adjacent(left, right, up, down) to the blank tile and if it is then return a tupple with coordinates of blank tile and a boolean flage indicating if the tile can be swaped with blank tile.
+     This function will identify if the tapped image is adjacent(left, right, up, down) to the blank tile and if it is then return a tupple with coordinates of blank tile and a boolean flag indicating if the tile can be swaped with blank tile.
      */
     func checkIfImageCanBeSwappedAndWithWhichTile(imageCoordinate: UIView) -> ((CGFloat, CGFloat), Bool){
         let center_x = imageCoordinate.center.x
