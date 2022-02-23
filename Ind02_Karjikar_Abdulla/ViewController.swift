@@ -197,7 +197,7 @@ class ViewController: UIViewController {
         }
         
         // Randomly shuffling 50 to 60 times blank tile with randomly selected adjacent tile. At most blank tile can be valid swapped with 4 tiles and atleast with 2 tiles
-        for _ in 1...Int.random(in: 15...25){
+        for _ in 1...Int.random(in: 35...40){
             swapWithBlank(imageView: validSwapCombinationsBasedOnBlankImage())
         }
     }
